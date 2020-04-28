@@ -18,10 +18,25 @@
       var button = document.getElementById('button');
       var card = document.getElementById('card');
       var refreshButton = document.getElementById('refresh');
-      document.getElementById('button').addEventListener('click', (event) => {
-        randomCardNumber(4);
+      let cards = [];
+      let count = 0;
+      window.onload = function(){
+        while (true) {
+          let nextCardNumber = Math.floor( Math.random() * 4);
+          if (cardNumber != nextCardNumber) {
+            cards.push(nextCardNumber);
+            cardNumber = nextCardNumber;
+          }
 
-        card.src = 'cards/' + cardNumber + '.png';
+          if (cards.length >= maxTurnCount) {
+            break;
+          }
+        }
+      }
+
+      document.getElementById('button').addEventListener('click', (event) => {
+        card.src = 'cards/' + cards[count] + '.png';
+        count++;
         incrementTurn();
       });
 
@@ -33,7 +48,6 @@
             break;
           }
         }
-
         return cardNumber;
       }
 
