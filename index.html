@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nanja-Monja</title>
+  </head>
+  <body>
+    <div style="text-align: center;">
+      <h1 id="turn">ボタンを押してカードをめくってね</h1>
+      <img src="cards/behind.png" id="card" style="width: 300px; display: block; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px;">
+      <button type="button" name="button" id="button" style="width: 200px; height: 50px; font-size: 25px; margin-top: 10px; cursor: pointer;">次のカード</button>
+    </div>
+    <script type='text/javascript'>
+      var cardNumber;
+      var turnCount = 1;
+      var maxTurnCount = 10;
+      var button = document.getElementById('button');
+      var card = document.getElementById('card');
+      var refreshButton = document.getElementById('refresh');
+      document.getElementById('button').addEventListener('click', (event) => {
+        randomCardNumber(4);
+
+        card.src = 'cards/' + cardNumber + '.png';
+        incrementTurn();
+      });
+
+      function randomCardNumber(cardCount) {
+        while(true){
+          nextCardNumber = Math.floor( Math.random() * cardCount);
+          if (cardNumber != nextCardNumber) {
+            cardNumber = nextCardNumber;
+            break;
+          }
+        }
+
+        return cardNumber;
+      }
+
+      function incrementTurn() {
+        var turn = document.getElementById("turn");
+        var count = maxTurnCount - turnCount;
+
+        if (count > 0) {
+          turn.innerText = 'のこり' + count + 'ターン';
+          turnCount++;
+        } else {
+          turn.innerText = '終了！！！';
+          button.innerText = 'もう一度';
+          button.setAttribute('onClick', 'refresh()');
+        }
+      }
+
+      function refresh() {
+        card.src = 'cards/behind.png';
+        turnCount = 1;
+        turn.innerText = 'ボタンを押してカードをめくってね';
+        button.innerText = '次のカード';
+        button.removeAttribute('onClick');
+      }
+    </script>
+  </body>
+</html>
