@@ -6,7 +6,7 @@
     <title>Nanja-Monja</title>
   </head>
   <body>
-    <div style="text-align: center;">
+    <div id="field" style="text-align: center;">
       <h1 id="turn">ボタンを押してカードをめくってね</h1>
       <img src="cards/behind.png" id="card" style="width: 300px; display: block; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px;">
       <button type="button" name="button" id="button" style="width: 200px; height: 50px; font-size: 25px; margin-top: 10px; cursor: pointer;">次のカード</button>
@@ -59,18 +59,14 @@
           turn.innerText = 'のこり' + count + 'ターン';
           turnCount++;
         } else {
+          button.style.display ="none"
           turn.innerText = '終了！！！';
-          button.innerText = 'もう一度';
-          button.setAttribute('onClick', 'refresh()');
+          var refreshButton = document.createElement("button");
+          refreshButton.innerText = 'もう一度';
+          refreshButton.setAttribute('onclick', 'window.location.reload()');
+          refreshButton.style = "width: 200px; height: 50px; font-size: 25px; margin-top: 10px; cursor: pointer;"
+          document.getElementById('field').appendChild(refreshButton);
         }
-      }
-
-      function refresh() {
-        card.src = 'cards/behind.png';
-        turnCount = 1;
-        turn.innerText = 'ボタンを押してカードをめくってね';
-        button.innerText = '次のカード';
-        button.removeAttribute('onClick');
       }
     </script>
   </body>
