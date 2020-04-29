@@ -8,7 +8,9 @@
   <body>
     <div id="field" style="text-align: center;">
       <h1 id="turn">ボタンを押してカードをめくってね</h1>
-      <img src="cards/behind.png" id="card" style="width: 300px; display: block; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px;">
+      <div id="cards" style="height: 400px;">
+        <img src="cards/behind.png" id="card" style="width: 300px; display: block; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px; position: absolute;">
+      </div>
       <button type="button" name="button" id="button" style="width: 200px; height: 50px; font-size: 25px; margin-top: 10px; cursor: pointer;">次のカード</button>
     </div>
     <script type='text/javascript'>
@@ -16,51 +18,45 @@
       var turnCount = 1;
       var maxTurnCount = 10;
       var button = document.getElementById('button');
-      var card = document.getElementById('card');
       var refreshButton = document.getElementById('refresh');
-      let cards = [];
+      var cards = document.getElementById('cards');
       let count = 0;
+      let cardCount = 1;
       window.onload = function(){
         while (true) {
           let nextCardNumber = Math.floor( Math.random() * 4);
           if (cardNumber != nextCardNumber) {
-            cards.push(nextCardNumber);
+            var card = document.createElement("img");
+            card.src = 'cards/' + nextCardNumber + '.png';
+            card.style = "width: 300px; display: none; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px; position: absolute;"
+            cards.appendChild(card);
             cardNumber = nextCardNumber;
+            cardCount++;
           }
 
-          if (cards.length >= maxTurnCount) {
+          if (cardCount >= maxTurnCount) {
             break;
           }
         }
       }
 
       document.getElementById('button').addEventListener('click', (event) => {
-        card.src = 'cards/' + cards[count] + '.png';
         count++;
+        if (document.getElementsByTagName('img')[count] != void 0) {
+          document.getElementsByTagName('img')[count].style.display = "block";
+        }
         incrementTurn();
       });
 
-      function randomCardNumber(cardCount) {
-        while(true){
-          nextCardNumber = Math.floor( Math.random() * cardCount);
-          if (cardNumber != nextCardNumber) {
-            cardNumber = nextCardNumber;
-            break;
-          }
-        }
-        return cardNumber;
-      }
-
       function incrementTurn() {
         var turn = document.getElementById("turn");
-        var count = maxTurnCount - turnCount;
-
-        if (count > 0) {
-          turn.innerText = 'のこり' + count + 'ターン';
-          turnCount++;
+        var turnCount = maxTurnCount - count;
+        if (turnCount > 0) {
+          turn.innerText = 'のこり' + turnCount + 'ターン';
         } else {
           button.style.display ="none"
           turn.innerText = '終了！！！';
+
           var refreshButton = document.createElement("button");
           refreshButton.innerText = 'もう一度';
           refreshButton.setAttribute('onclick', 'window.location.reload()');
