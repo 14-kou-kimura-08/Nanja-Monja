@@ -4,19 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nanja-Monja</title>
+    <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <div id="field" style="text-align: center;">
-      <h1 id="turn">ボタンを押してカードをめくってね</h1>
-      <div id="cards" style="height: 400px; margin: 0 auto; width: 300px;">
-        <img src="cards/behind.jpeg" id="card" style="height: 400px; width: 300px; display: block; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px; position: absolute;">
+    <div id="field">
+      <p id="message">ボタンを押してスタート</p>
+      <div id="cards">
+        <img src="cards/behind.jpeg" class="card">
       </div>
-      <button type="button" name="button" id="button" style="width: 200px; height: 50px; font-size: 25px; margin-top: 10px; cursor: pointer;">次のカード</button>
+      <button type="button" name="button" id="button">次のカード</button>
     </div>
+
     <script type='text/javascript'>
       var cardNumber;
       var turnCount = 1;
-      var maxTurnCount = 10;
+      var maxTurnCount = 21;
       var button = document.getElementById('button');
       var refreshButton = document.getElementById('refresh');
       var cards = document.getElementById('cards');
@@ -24,11 +26,12 @@
       let cardCount = 0;
       window.onload = function(){
         while (true) {
-          let nextCardNumber = Math.floor( Math.random() * 6);
+          let nextCardNumber = Math.floor( Math.random() * 7);
           if (cardNumber != nextCardNumber) {
             var card = document.createElement("img");
             card.src = 'cards/' + nextCardNumber + '.jpeg';
-            card.style = "height: 400px; width: 300px; display: none; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px; position: absolute;"
+            card.style = 'display: none;'
+            card.setAttribute('class', 'card');
             cards.appendChild(card);
             cardNumber = nextCardNumber;
             cardCount++;
@@ -49,18 +52,18 @@
       });
 
       function incrementTurn() {
-        var turn = document.getElementById("turn");
+        var turn = document.getElementById("message");
         var turnCount = maxTurnCount - count;
         if (turnCount > 0) {
           turn.innerText = 'のこり' + turnCount + 'ターン';
         } else {
           button.style.display ="none"
-          turn.innerText = '終了！！！';
+          turn.innerText = 'おしまい~！';
 
           var refreshButton = document.createElement("button");
-          refreshButton.innerText = 'もう一度';
+          refreshButton.innerText = 'もう一度遊ぶ';
           refreshButton.setAttribute('onclick', 'window.location.reload()');
-          refreshButton.style = "width: 200px; height: 50px; font-size: 25px; margin-top: 10px; cursor: pointer;"
+          refreshButton.setAttribute('class', 'refresh');
           document.getElementById('field').appendChild(refreshButton);
         }
       }
