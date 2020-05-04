@@ -9,7 +9,7 @@
     <div id="field" style="text-align: center;">
       <h1 id="turn">ボタンを押してカードをめくってね</h1>
       <div id="cards" style="height: 400px; margin: 0 auto; width: 300px;">
-        <img src="cards/behind.png" id="card" style="height: 400px; width: 300px; display: block; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px; position: absolute;">
+        <img src="cards/behind.jpeg" id="card" style="height: 400px; width: 300px; display: block; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px; position: absolute;">
       </div>
       <button type="button" name="button" id="button" style="width: 200px; height: 50px; font-size: 25px; margin-top: 10px; cursor: pointer;">次のカード</button>
     </div>
@@ -24,10 +24,10 @@
       let cardCount = 0;
       window.onload = function(){
         while (true) {
-          let nextCardNumber = Math.floor( Math.random() * 5);
+          let nextCardNumber = Math.floor( Math.random() * 6);
           if (cardNumber != nextCardNumber) {
             var card = document.createElement("img");
-            card.src = 'cards/' + nextCardNumber + '.png';
+            card.src = 'cards/' + nextCardNumber + '.jpeg';
             card.style = "height: 400px; width: 300px; display: none; margin: 0 auto; border: 1px solid #B3B3B3; border-radius: 10px; position: absolute;"
             cards.appendChild(card);
             cardNumber = nextCardNumber;
