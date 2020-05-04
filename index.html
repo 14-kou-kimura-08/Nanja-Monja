@@ -33,6 +33,7 @@
         <img src="cards/behind.jpeg" class="card">
       </div>
       <button type="button" name="button" id="button">次のカード</button>
+      <a href="http://nanjamonja.jp/"><button type="button" name="button" class="button" id="howToPlay">遊び方</button><a>
     </div>
 
     <script type='text/javascript'>
@@ -64,6 +65,7 @@
       }
 
       document.getElementById('button').addEventListener('click', (event) => {
+        document.getElementById("howToPlay").style.display = 'none';
         count++;
         if (document.getElementsByTagName('img')[count] != void 0) {
           document.getElementsByTagName('img')[count].style.display = "block";
