@@ -22,20 +22,20 @@ body {
 }
 
 #message {
-  line-height: 80px;
+  line-height: 60px;
   font-size: 24px;
   font-weight: bold;
 }
 
 #cards {
-  height: 360px;
-  width: 280px;
+  height: 300px;
+  width: 230px;
   margin: 0 auto;
 }
 
 .card {
-  height: 360px;
-  width: 280px;
+  height: 300px;
+  width: 230px;
   display: block;
   margin: 0 auto;
   border: 1px solid #B3B3B3;
