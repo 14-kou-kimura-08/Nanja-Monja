@@ -28,14 +28,14 @@
   </head>
   <body>
     <div id="startButtons">
-      <img src="top.jpg" alt="" width="90%" style="max-width: 400px; display: block;margin: 0 auto;">
+      <img src="top.jpg" alt="なんじゃdeおんらいん" class="top">
       <output id="list"></output>
       <label for="files" class="button blue">
         じぶんの画像で遊ぶ
         <input type="file" id="files" name="files[]" multiple style="display:none">
       </label>
       <button type="button" name="button" class="button pink" id="start">いますぐ遊ぶ</button>
-      <a href="http://nanjamonja.jp/"><button type="button" name="button" class="button green" id="howToPlay">遊び方</button><a>
+      <a href="http://nanjamonja.jp/" target="_blank"><button type="button" name="button" class="button green" id="howToPlay">遊び方</button></a>
     </div>
     <div id="field" style="display: none;">
       <p id="message"></p>
@@ -45,7 +45,16 @@
 
     <script type='text/javascript'>
       var selectedCards = [];
-      if (window.File && window.FileReader && window.FileList && window.Blob) {
+      var cardNumber;
+      var turnCount = 1;
+      var maxTurnCount = 20;
+      var button = document.getElementById('button');
+      var refreshButton = document.getElementById('refresh');
+      var cards = document.getElementById('cards');
+      let count = 0;
+      let cardCount = 0;
+
+      if (window.FileReader) {
         async function handleFileSelect(event) {
           var files = event.target.files;
 
@@ -81,18 +90,15 @@
         alert('ご利用のブラウザでは画像選択ができません');
       }
 
-      var cardNumber;
-      var turnCount = 1;
-      var maxTurnCount = 21;
-      var button = document.getElementById('button');
-      var refreshButton = document.getElementById('refresh');
-      var cards = document.getElementById('cards');
-      let count = 0;
-      let cardCount = 0;
-
       function switchDisplay() {
         document.getElementById('startButtons').style.display = "none";
         document.getElementById('field').style.display = "block";
+      }
+
+      function switchButtonDisplay() {
+        document.getElementById('start').innerText = 'START';
+        document.getElementById('start').classList.remove('pink');
+        document.getElementById('start').classList.add('orange');
       }
 
       async function setCards() {
@@ -112,7 +118,7 @@
               cardCount++;
             }
 
-            if (cardCount >= maxTurnCount) {
+            if (cardCount > maxTurnCount) {
               break;
             }
           }
@@ -121,24 +127,14 @@
         }
       }
 
-      document.getElementById('files').addEventListener('change', function () {
-        document.getElementById('start').innerText = 'START';
-        document.getElementById('start').classList.remove('pink');
-        document.getElementById('start').classList.add('orange');
-      });
-
-      document.getElementById('start').addEventListener('click', setCards);
-
-      document.getElementById('button').addEventListener('click', (event) => {
-        count++;
+      function desplayCard(count) {
         if (document.getElementsByClassName('card')[count] != void 0) {
           if (count >= 1) {
             document.getElementsByClassName('card')[count - 1].style.display = "none";
           }
           document.getElementsByClassName('card')[count].style.display = "block";
         }
-        incrementTurn();
-      });
+      }
 
       function incrementTurn() {
         var turn = document.getElementById("message");
@@ -156,6 +152,18 @@
           document.getElementById('field').appendChild(refreshButton);
         }
       }
+
+      document.getElementById('files').addEventListener('change', switchButtonDisplay);
+      document.getElementById('start').addEventListener('click', (event) => {
+        setCards();
+        desplayCard(count);
+        incrementTurn();
+      });
+      document.getElementById('button').addEventListener('click', (event) => {
+        count++;
+        desplayCard(count);
+        incrementTurn();
+      });
     </script>
   </body>
 </html>
