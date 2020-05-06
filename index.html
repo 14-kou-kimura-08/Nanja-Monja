@@ -27,24 +27,28 @@
 
   </head>
   <body>
-    <div id="field">
-      <p id="message">ボタンを押してスタート</p>
-      <div id="cards">
-        <img src="cards/behind.jpeg" class="card">
-      </div>
-      <button type="button" name="button" id="button">次のカード</button>
-      <a href="http://nanjamonja.jp/"><button type="button" name="button" class="button" id="howToPlay">遊び方</button><a>
+    <div id="startButtons">
+      <img src="top.jpg" alt="" width="90%" style="max-width: 400px; display: block;margin: 0 auto;">
+      <output id="list"></output>
+      <label for="files" class="button blue">
+        じぶんの画像で遊ぶ
+        <input type="file" id="files" name="files[]" multiple style="display:none">
+      </label>
+      <button type="button" name="button" class="button pink" id="start">いますぐ遊ぶ</button>
+      <a href="http://nanjamonja.jp/"><button type="button" name="button" class="button green" id="howToPlay">遊び方</button><a>
     </div>
-    <input type="file" id="files" name="files[]" multiple />
-    <output id="list"></output>
+    <div id="field" style="display: none;">
+      <p id="message"></p>
+      <div id="cards"></div>
+      <button type="button" name="button" id="button" class="button orange">次のカード</button>
+    </div>
 
     <script type='text/javascript'>
       var selectedCards = [];
       if (window.File && window.FileReader && window.FileList && window.Blob) {
         async function handleFileSelect(event) {
-          var files = event.target.files; // FileList object
+          var files = event.target.files;
 
-          // files is a FileList of File objects. List some properties.
           var output = [];
           for (var i = 0, file; file = files[i]; i++) {
             if (!file.type.match('image.*')) {
@@ -55,7 +59,6 @@
 
             reader.onload = (function(theFile) {
               return function(e) {
-                // Render thumbnail.
                 var span = document.createElement('span');
                 span.innerHTML = ['<img class="thumb" src="', e.target.result,
                                   '" title="', escape(theFile.name), '"/>'].join('');
@@ -86,30 +89,53 @@
       var cards = document.getElementById('cards');
       let count = 0;
       let cardCount = 0;
-      window.onload = function(){
-        while (true) {
-          let nextCardNumber = Math.floor( Math.random() * 7);
-          if (cardNumber != nextCardNumber) {
-            var card = document.createElement("img");
-            card.src = 'cards/' + nextCardNumber + '.jpeg';
-            card.style = 'display: none;'
-            card.setAttribute('class', 'card');
-            cards.appendChild(card);
-            cardNumber = nextCardNumber;
-            cardCount++;
+
+      function switchDisplay() {
+        document.getElementById('startButtons').style.display = "none";
+        document.getElementById('field').style.display = "block";
+      }
+
+      async function setCards() {
+        if (selectedCards.length == 1 || selectedCards.length > 8) {
+          alert('画像は2〜8枚えらんでください');
+        } else {
+          var array = selectedCards.length != 0 ? selectedCards : ['cards/0.jpeg', 'cards/1.jpeg', 'cards/2.jpeg', 'cards/3.jpeg', 'cards/4.jpeg', 'cards/5.jpeg', 'cards/6.jpeg'];
+          while (true) {
+            let nextCardNumber = Math.floor( Math.random() * array.length);
+            if (cardNumber != nextCardNumber) {
+              var card = document.createElement("img");
+              card.src = array[nextCardNumber];
+              card.style = 'display: none;'
+              card.setAttribute('class', 'card');
+              cards.appendChild(card);
+              cardNumber = nextCardNumber;
+              cardCount++;
+            }
+
+            if (cardCount >= maxTurnCount) {
+              break;
+            }
           }
 
-          if (cardCount >= maxTurnCount) {
-            break;
-          }
+          switchDisplay();
         }
       }
 
+      document.getElementById('files').addEventListener('change', function () {
+        document.getElementById('start').innerText = 'START';
+        document.getElementById('start').classList.remove('pink');
+        document.getElementById('start').classList.add('orange');
+      });
+
+      document.getElementById('start').addEventListener('click', setCards);
+
       document.getElementById('button').addEventListener('click', (event) => {
-        document.getElementById("howToPlay").style.display = 'none';
         count++;
-        if (document.getElementsByTagName('img')[count] != void 0) {
-          document.getElementsByTagName('img')[count].style.display = "block";
+        if (document.getElementsByClassName('card')[count] != void 0) {
+          if (count >= 1) {
+            document.getElementsByClassName('card')[count - 1].style.display = "none";
+          }
+          document.getElementsByClassName('card')[count].style.display = "block";
         }
         incrementTurn();
       });
@@ -124,9 +150,9 @@
           turn.innerText = 'おしまい！';
 
           var refreshButton = document.createElement("button");
-          refreshButton.innerText = 'もう一度遊ぶ';
+          refreshButton.innerText = '最初から';
           refreshButton.setAttribute('onclick', 'window.location.reload()');
-          refreshButton.setAttribute('class', 'refresh');
+          refreshButton.setAttribute('class', 'button green');
           document.getElementById('field').appendChild(refreshButton);
         }
       }
