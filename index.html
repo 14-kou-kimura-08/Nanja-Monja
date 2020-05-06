@@ -9,12 +9,12 @@
     <meta property="og:title" content="なんじゃdeおんらいん" />
     <meta property="og:description" content="カードゲーム「なんじゃもんじゃ」をオンラインde楽しめます">
     <meta property="og:site_name" content="なんじゃdeおんらいん">
-    <meta property="og:image" content="https://deploy-preview-1--friendly-villani-5551dd.netlify.app/top.jpeg" />
+    <meta property="og:image" content="https://deploy-preview-1--friendly-villani-5551dd.netlify.app/images/ogp.png" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:creator" content="@814_kimura86" />
     <title>Nanja-Monja</title>
     <link rel="stylesheet" href="index.css">
-    <link rel="icon" href="https://deploy-preview-1--friendly-villani-5551dd.netlify.app/top.jpeg">
+    <link rel="icon" href="https://deploy-preview-1--friendly-villani-5551dd.netlify.app/images/ogp.png">
     <meta name="google-site-verification" content="NVqFV_W56y0d_kgnm-yGFLCl76j7Cvk0bWA_0S5N0EY" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132461298-3"></script>
@@ -29,7 +29,7 @@
   </head>
   <body>
     <div id="startButtons">
-      <img src="top.jpeg" alt="なんじゃdeおんらいん" class="top">
+      <img src="images/top.jpeg" alt="なんじゃdeおんらいん" class="top">
       <output id="list"></output>
       <label for="files" class="button blue">
         じぶんの画像で遊ぶ
@@ -106,7 +106,7 @@
         if (selectedCards.length == 1 || selectedCards.length > 8) {
           alert('画像は2〜8枚えらんでください');
         } else {
-          var array = selectedCards.length != 0 ? selectedCards : ['cards/0.jpeg', 'cards/1.jpeg', 'cards/2.jpeg', 'cards/3.jpeg', 'cards/4.jpeg', 'cards/5.jpeg', 'cards/6.jpeg'];
+          var array = selectedCards.length != 0 ? selectedCards : ['images/cards/0.jpeg', 'images/cards/1.jpeg', 'images/cards/2.jpeg', 'images/cards/3.jpeg', 'images/cards/4.jpeg', 'images/cards/5.jpeg', 'images/cards/6.jpeg'];
           while (true) {
             let nextCardNumber = Math.floor( Math.random() * array.length);
             if (cardNumber != nextCardNumber) {
