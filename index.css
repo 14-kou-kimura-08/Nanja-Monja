@@ -18,6 +18,17 @@ body {
 	align-items: center;
 }
 
+a {
+  text-decoration: none;
+}
+
+.top {
+   width: 90%;
+   max-width: 400px;
+   display: block;
+   margin: 0 auto;
+}
+
 #field {
   text-align: center;
 }
@@ -42,41 +53,27 @@ body {
   border: 1px solid #B3B3B3;
   border-radius: 10px;
   position: absolute;
+  object-fit: cover;
 }
 
-#button {
-  width: 200px;
-  height: 50px;
-  font-size: 25px;
-  margin-top: 20px;
-  cursor: pointer;
-  background-color: #ffa91f;
-  color: #ffffff;
-  border-radius: 25px;
-  border: solid 1px #ffa91f;
-  border-bottom: solid 4px #ed9609;
-}
-
-#button:active {
-  transform: translateY(4px);
-  border-bottom: none;
-}
-
-#button:focus {
-	outline:0;
+#startButtons {
+  width: 300px;
+  margin: 0 auto;
 }
 
 .button {
+  display: block;
+  text-align: center;
+  line-height: 50px;
   width: 200px;
   height: 50px;
-  font-size: 25px;
-  margin-top: 10px;
+  font-size: 18px;
+  margin: 10px auto 0;
   cursor: pointer;
-  background-color: #32a852;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #191919;
   border-radius: 25px;
-  border: solid 1px #32a852;
-  border-bottom: solid 4px #007821;
+  border: solid 1px #191919;
 }
 
 .button:active {
@@ -88,24 +85,50 @@ body {
 	outline:0;
 }
 
-.refresh {
-  width: 250px;
+#list {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 230px;
+}
+
+.thumb {
+  object-fit: cover;
   height: 50px;
-  font-size: 25px;
-  margin-top: 20px;
-  cursor: pointer;
-  background-color: #476fff;
+  width: 40px;
+  border: 1px solid #B3B3B3;
+  margin: 10px 5px 0 0;
+}
+
+.blue {
+  background-color: #45C0BF;
   color: #ffffff;
   border-radius: 25px;
-  border: solid 1px #476fff;
-  border-bottom: solid 4px #1e49e6;
+  border: solid 1px #45C0BF;
+  border-bottom: solid 4px #0f9191;
 }
 
-.refresh:active {
-  transform: translateY(4px);
-  border-bottom: none;
+.pink {
+  background-color: #FF7D81;
+  color: #ffffff;
+  border-radius: 25px;
+  border: solid 1px #FF7D81;
+  border-bottom: solid 4px #d1696c;
 }
 
-.refresh:focus {
-	outline:0;
+.orange {
+  background-color: #F19149;
+  color: #ffffff;
+  border-radius: 25px;
+  border: solid 1px #F19149;
+  border-bottom: solid 4px #c27338;
+}
+
+.green {
+  background-color: #28B698;
+  color: #ffffff;
+  border-radius: 25px;
+  border: solid 1px #28B698;
+  border-bottom: solid 4px #1d8a72;
 }
